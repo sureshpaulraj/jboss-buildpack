@@ -231,10 +231,12 @@ module JavaBuildpack
 
           proxy_uri = if secure?(uri)
                         @logger.warn { "XXX proxy is secure 1 " }
+                        encoded_uri = URI.encode(uri)
                         URI.parse(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')
                         @logger.warn { "XXX proxy is secure 2 " }
                       else
                         @logger.warn { "XXX proxy is insecure 1 " }
+                        encoded_uri = URI.encode(uri)
                         URI.parse(ENV['http_proxy'] || ENV['HTTP_PROXY'] || '')
                         @logger.warn { "XXX proxy is insecure 2 " }
                       end
