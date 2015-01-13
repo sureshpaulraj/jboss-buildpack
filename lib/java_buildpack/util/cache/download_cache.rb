@@ -227,6 +227,7 @@ module JavaBuildpack
         end
 
         def proxy(uri)
+          @logger.warn { "XXX Executing proxy on #{uri} " }
           proxy_uri = if secure?(uri)
                         URI.parse(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')
                       else
@@ -261,6 +262,8 @@ module JavaBuildpack
         end
 
         def update(uri, cached_file)
+          @logger.warn { "XXX Executing update on #{uri} and #{cached_file}" }
+
           proxy(uri).start(uri.host, uri.port, http_options(uri)) do |http|
             @logger.debug { "HTTP: #{http.address}, #{http.port}, #{http_options(uri)}" }
             debug_ssl(http) if secure?(uri)
@@ -270,6 +273,7 @@ module JavaBuildpack
         end
 
         def attempt_update(cached_file, http, uri)
+          @logger.warn { "XXX Executing attempt_update #{uri} " }
           request = request uri, cached_file
           request.basic_auth uri.user, uri.password if uri.user && uri.password
 
