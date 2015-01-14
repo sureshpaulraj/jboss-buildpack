@@ -238,9 +238,16 @@ module JavaBuildpack
                         URI.parse(ENV['http_proxy'] || ENV['HTTP_PROXY'] || '')
                         @logger.warn { "XXX proxy is insecure 2 " }
                       end
+          @logger.warn { "XXX proxy_uri #{proxy_uri}" }
+          @logger.warn { "XXX host #{proxy_uri.host}" }
+          @logger.warn { "XXX port #{proxy_uri.port}" }
+          @logger.warn { "XXX user #{proxy_uri.user}" }
+          @logger.warn { "XXX password #{proxy_uri.password}" }
+
 
           @logger.debug { "Proxy: #{proxy_uri.host}, #{proxy_uri.port}, #{proxy_uri.user}, #{proxy_uri.password}" }
           Net::HTTP::Proxy(proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password)
+          @logger.warn { "XXX Leaving proxy function on #{uri} " }
         end
 
         def redirect?(response)
