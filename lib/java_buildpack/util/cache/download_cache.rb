@@ -239,6 +239,11 @@ module JavaBuildpack
                         @logger.warn { "XXX proxy is insecure 2 " }
                       end
           @logger.warn { "XXX proxy_uri #{proxy_uri}" }
+          @logger.warn {"https_proxy #{ENV['https_proxy']}"}
+          @logger.warn {"https_proxy exprssion  #{(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')}"}
+
+          proxy_uri = URI.parse(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')
+
           @logger.warn { "XXX host #{proxy_uri.host}" }
           @logger.warn { "XXX port #{proxy_uri.port}" }
           @logger.warn { "XXX user #{proxy_uri.user}" }
