@@ -232,17 +232,15 @@ module JavaBuildpack
           proxy_uri = if secure?(uri)
                         @logger.warn { "XXX proxy is secure 1 " }
                         URI.parse(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')
-                        @logger.warn { "XXX proxy is secure 2 " }
                       else
                         @logger.warn { "XXX proxy is insecure 1 " }
                         URI.parse(ENV['http_proxy'] || ENV['HTTP_PROXY'] || '')
-                        @logger.warn { "XXX proxy is insecure 2 " }
                       end
-          @logger.warn { "XXX proxy_uri #{proxy_uri}" }
-          @logger.warn {"https_proxy #{ENV['https_proxy']}"}
-          @logger.warn {"https_proxy exprssion  #{(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')}"}
+          @logger.warn {"XXX proxy_uri #{proxy_uri}" }
+          @logger.warn {"XXX https_proxy #{ENV['https_proxy']}"}
+          @logger.warn {"XXX https_proxy exprssion  #{(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')}"}
 
-          proxy_uri = URI.parse(ENV['https_proxy'] || ENV['HTTPS_PROXY'] || '')
+
 
           @logger.warn { "XXX host #{proxy_uri.host}" }
           @logger.warn { "XXX port #{proxy_uri.port}" }
@@ -252,7 +250,6 @@ module JavaBuildpack
 
           @logger.debug { "Proxy: #{proxy_uri.host}, #{proxy_uri.port}, #{proxy_uri.user}, #{proxy_uri.password}" }
           Net::HTTP::Proxy(proxy_uri.host, proxy_uri.port, proxy_uri.user, proxy_uri.password)
-          @logger.warn { "XXX Leaving proxy function on #{uri} " }
         end
 
         def redirect?(response)
